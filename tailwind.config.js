@@ -18,6 +18,9 @@ module.exports = {
       },
       width: {
         '335-px': '335px'
+      },
+      maxHeight: {
+        '118-px': '118px'
       }
     },
   },
