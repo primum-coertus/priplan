@@ -23,12 +23,12 @@ function TaskProgress() {
     {
       tugas: 'Mabar Minecraft',
       waktu: '02 September 2023 | 16:00 PM',
-      telahSelesai: true
+      telahSelesai: false
     },
     {
       tugas: 'Ngoding',
       waktu: '02 September 2023 | 20:00 PM',
-      telahSelesai: true
+      telahSelesai: false
     },
   ];
   
