@@ -1,40 +1,16 @@
-export default function TaskInfo() {
+export default function TaskInfo({data}) {
   return (
-    <div className="pt-8 flex gap-5">
-      <TaskProgress></TaskProgress>
+    <div className="flex gap-10">
+      <TaskProgress todayTask={data}></TaskProgress>
       <UpcomingTask></UpcomingTask>
     </div>
   );
 }
 
-function TaskProgress() {
-  //todayTask nanti ngambil dari database
-  const todayTask = [
-    {
-      tugas: 'Mancing',
-      waktu: '02 September 2023 | 09:00 AM',
-      telahSelesai: true
-    },
-    {
-      tugas: 'Service Komputer',
-      waktu: '02 September 2023 | 13:00 PM',
-      telahSelesai: true
-    },
-    {
-      tugas: 'Mabar Minecraft',
-      waktu: '02 September 2023 | 16:00 PM',
-      telahSelesai: false
-    },
-    {
-      tugas: 'Ngoding',
-      waktu: '02 September 2023 | 20:00 PM',
-      telahSelesai: false
-    },
-  ];
-  
-  const completedTask = todayTask.filter(obj => obj.telahSelesai).length;
+function TaskProgress({todayTask}) {
+  const completedTask = todayTask.length ? todayTask.filter(obj => obj.telahSelesai).length : 0;
   const taskRemaining = todayTask.length - completedTask;
-  const completedTaskPercentage = (completedTask / todayTask.length) * 100;
+  const completedTaskPercentage = todayTask.length ? parseInt((completedTask / todayTask.length) * 100) : 100;
 
   const progressBarStyle = {
     display: "flex",
@@ -64,41 +40,50 @@ function TaskProgress() {
 }
 
 function UpcomingTask() {
+  //upcomingTask nanti ngambil dri database
+  const upcomingTasks = [
+    // {
+    //   id: '1',
+    //   tugas: 'Mancing',
+    //   waktu: '03 September 2023 | 09:00 AM',
+    //   telahSelesai: false
+    // },
+    // {
+    //   id: '2',
+    //   tugas: 'Service Komputer',
+    //   waktu: '03 September 2023 | 13:00 PM',
+    //   telahSelesai: false
+    // },
+    // {
+    //   id: '3',
+    //   tugas: 'Mabar Minecraft',
+    //   waktu: '03 September 2023 | 16:00 PM',
+    //   telahSelesai: false
+    // },
+    // {
+    //   id: '4',
+    //   tugas: 'Ngoding',
+    //   waktu: '03 September 2023 | 20:00 PM',
+    //   telahSelesai: false
+    // },
+  ];
+
   return (
     <div className="bg-app-blue w-full p-5 flex flex-col gap-4 rounded-md overflow-auto">
       <p className="text-2xl bold w-fit">Upcoming Task</p>
-      <ul className="list-disc ml-5 flex flex-col flex-wrap gap-5 max-h-118-px w-fit">
-        <UpcomingTaskList></UpcomingTaskList>
+      <ul className="list-disc ml-5 flex flex-col flex-wrap gap-3 gap-x-8 max-h-118-px w-fit">
+        {upcomingTasks.length ? upcomingTasks.map(upcomingTask => (
+          <UpcomingTaskList data={upcomingTask}></UpcomingTaskList>
+        )) : 
+          <UpcomingTaskList data={{id: 'emptyTask', tugas: "There's no upcoming task !"}}></UpcomingTaskList>
+        }
       </ul>
     </div>
   );
 }
 
-function UpcomingTaskList() {
-  //upcomingTask nanti ngambil dri database
-  const upcomingTask = [
-    {
-      tugas: 'Mancing',
-      waktu: '03 September 2023 | 09:00 AM',
-      telahSelesai: false
-    },
-    {
-      tugas: 'Service Komputer',
-      waktu: '03 September 2023 | 13:00 PM',
-      telahSelesai: false
-    },
-    {
-      tugas: 'Mabar Minecraft',
-      waktu: '03 September 2023 | 16:00 PM',
-      telahSelesai: false
-    },
-    {
-      tugas: 'Ngoding',
-      waktu: '03 September 2023 | 20:00 PM',
-      telahSelesai: false
-    },
-  ]
-  return upcomingTask.map((obj, idx) => (
-    <li id={idx} className="ml-3">{obj.tugas}</li>
-  ));
+function UpcomingTaskList({data}) {
+    return (
+      <li id={data.id} className="ml-3">{data.tugas}</li>
+    );
 }

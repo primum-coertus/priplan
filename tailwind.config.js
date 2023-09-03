@@ -14,13 +14,19 @@ module.exports = {
       },
       colors: {
         'app-purple': '#D785F4',
-        'app-blue': '#7180FF'
+        'app-blue': '#7180FF',
+        'app-red': '#FC9F9A',
+        'app-white': '#FDFDFF',
+        'app-black': '#616161'
       },
       width: {
         '335-px': '335px'
       },
       maxHeight: {
         '118-px': '118px'
+      },
+      minHeight: {
+        '200-px': '200px'
       }
     },
   },
