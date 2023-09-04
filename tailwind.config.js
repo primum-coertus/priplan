@@ -17,16 +17,21 @@ module.exports = {
         'app-blue': '#7180FF',
         'app-red': '#FC9F9A',
         'app-white': '#FDFDFF',
-        'app-black': '#616161'
+        'app-black': '#616161',
+        'app-dark': '#272829',
       },
       width: {
-        '335-px': '335px'
+        '335-px': '335px',
+        '0.9': '90%'
       },
       maxHeight: {
         '118-px': '118px'
       },
       minHeight: {
         '200-px': '200px'
+      },
+      margin: {
+        '84': '21rem'
       }
     },
   },

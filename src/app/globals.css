@@ -22,18 +22,9 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #272829;
+  background-color: #040D12;
 }
 
-/* .progress-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 180px;
-  height: 150px;
-  border-radius: 50%;
-  background:
-    radial-gradient(closest-side, #2B2730 79%, transparent 80% 100%),
-    conic-gradient(#040D12 75%, grey 0);
-} */
+textarea::-webkit-scrollbar {
+  display: none;
+}
