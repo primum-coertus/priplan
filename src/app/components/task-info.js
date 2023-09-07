@@ -8,7 +8,7 @@ export default function TaskInfo({data}) {
 }
 
 function TaskProgress({todayTask}) {
-  const completedTask = todayTask.length ? todayTask.filter(obj => obj.telahSelesai).length : 0;
+  const completedTask = todayTask.length ? todayTask.filter(obj => obj.is_completed).length : 0;
   const taskRemaining = todayTask.length - completedTask;
   const completedTaskPercentage = todayTask.length ? parseInt((completedTask / todayTask.length) * 100) : 100;
 
@@ -42,30 +42,7 @@ function TaskProgress({todayTask}) {
 function UpcomingTask() {
   //upcomingTask nanti ngambil dri database
   const upcomingTasks = [
-    // {
-    //   id: '1',
-    //   tugas: 'Mancing',
-    //   waktu: '03 September 2023 | 09:00 AM',
-    //   telahSelesai: false
-    // },
-    // {
-    //   id: '2',
-    //   tugas: 'Service Komputer',
-    //   waktu: '03 September 2023 | 13:00 PM',
-    //   telahSelesai: false
-    // },
-    // {
-    //   id: '3',
-    //   tugas: 'Mabar Minecraft',
-    //   waktu: '03 September 2023 | 16:00 PM',
-    //   telahSelesai: false
-    // },
-    // {
-    //   id: '4',
-    //   tugas: 'Ngoding',
-    //   waktu: '03 September 2023 | 20:00 PM',
-    //   telahSelesai: false
-    // },
+   
   ];
 
   return (

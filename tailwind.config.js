@@ -28,7 +28,8 @@ module.exports = {
         '118-px': '118px'
       },
       minHeight: {
-        '200-px': '200px'
+        '200-px': '200px',
+        '250-px': '250px'
       },
       margin: {
         '84': '21rem'

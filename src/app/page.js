@@ -3,36 +3,24 @@ import TaskInfo from "./components/task-info";
 import TodayTask from "./components/today-task";
 
 export default function Homepage() {
-  //todayTask nanti ngambil dari database
+  //todayTask nanti ngambil dari database -> get all task where date == today date
   const todayTask = [
-    // {
-    //   id: '1',
-    //   tugas: 'Mancing',
-    //   tanggal: '02 September 2023',
-    //   waktu: '09:00 AM',
-    //   telahSelesai: true
-    // },
-    // {
-    //   id: '2',
-    //   tugas: 'Service Komputer',
-    //   tanggal: '02 September 2023',
-    //   waktu: '13:00 PM',
-    //   telahSelesai: true
-    // },
-    // {
-    //   id: '3',
-    //   tugas: 'Mabar Minecraft',
-    //   tanggal: '02 September 2023',
-    //   waktu: '16:00 PM',
-    //   telahSelesai: false
-    // },
-    // {
-    //   id: '4',
-    //   tugas: 'Ngoding',
-    //   tanggal: '02 September 2023',
-    //   waktu: '20:00 PM',
-    //   telahSelesai: false
-    // },
+    {
+      id: '1',
+      title: 'Mancing',
+      plan: 'Mancing bareng anggota Primum Coertus di Rumah Adit',
+      start_date: '07 September 2023',
+      end_date: '07 September 2023',
+      is_completed: true
+    },
+    {
+      id: '2',
+      title: 'Minecraft',
+      plan: 'Mabar game Minecraft di Discord',
+      start_date: '07 September 2023',
+      end_date: '07 September 2023',
+      is_completed: false
+    },
   ];
 
   return (

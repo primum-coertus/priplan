@@ -1,41 +1,51 @@
+"use client";
+
+import { useState } from "react";
 import AddTask from "./add-task";
 
 export default function TodayTask({data}) {
+  const [modalDisplay, setModalDisplay] = useState("hidden");
+  const showModal = () => setModalDisplay("block");
+  const closeModal = () => setModalDisplay("hidden");
+
   return (
     <div className="flex flex-col gap-9 relative">
+      <AddTask display={modalDisplay} closeModalHandler={closeModal}></AddTask>
       <h1 className="text-3xl font-bold">Today's Task</h1>
-      {/* <AddTask></AddTask> */}
-      <TaskList data={data}></TaskList>
+      <TaskList data={data} addTaskHandler={showModal}></TaskList>
     </div>
   );
 }
 
-function TaskList({data}) {
+function TaskList({data, addTaskHandler}) {
   return data.length ? (
     <>
       <div className="grid grid-cols-2 gap-y-6 gap-x-24 min-h-200-px">
         {data.map(task => (
-          <TaskCard detail={task}></TaskCard>
+          <TaskCard key={task.id} detail={task}></TaskCard>
         ))}
       </div>
       <div className="flex flex-col items-end mt-4">
-        <AddButton></AddButton>
+        <AddButton showModal={addTaskHandler}></AddButton>
       </div>
     </>
   ) : (
     <div className="min-h-200-px flex flex-col items-center pt-8">
-      <AddButton></AddButton>
+      <AddButton showModal={addTaskHandler}></AddButton>
     </div>
   )
 }
 
 function TaskCard({detail}) {
   return (
-    <div className="grid grid-cols-8 justify-start bg-app-white text-app-black rounded-md overflow-hidden max-h-28">
-      <span className={`${detail.telahSelesai ? 'bg-gray-400' : 'bg-app-red'} col-start-1 col-span-1`}></span>
-      <div className="p-2 pb-6 pl-4 col-start-2 col-span-5">
-        <p className="text-2xl font-bold">{detail.tugas}</p>
-        <p className="text-md">{detail.waktu}</p>
+    <div className="grid grid-cols-8 justify-start bg-app-white text-app-black rounded-md overflow-hidden min-h-fit">
+      <span className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} col-start-1 col-span-1`}></span>
+      <div className="p-2 flex flex-col gap-2 pb-6 pl-4 col-start-2 col-span-5">
+        <div>
+          <p className="text-2xl font-bold">{detail.title}</p>
+          <p className="text-md">{detail.end_date}</p>
+        </div>
+        <p className="text-lg">{detail.plan}</p>
       </div>
       <div className="p-4 text-2xl flex col-start-7 col-span-2 items-center justify-end gap-4">
         <button><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#FF5E5E"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></button>
@@ -45,10 +55,10 @@ function TaskCard({detail}) {
   )
 }
 
-function AddButton() {
+function AddButton({showModal}) {
   return (
     <div className="flex flex-col items-center">
-      <button className="w-16 h-16 pb-2 rounded-full flex justify-center items-center text-7xl bg-app-blue overflow-hidden">+</button>
+      <button className="w-16 h-16 pb-2 rounded-full flex justify-center items-center text-7xl bg-app-blue overflow-hidden" onClick={showModal}>+</button>
       <p>Add new task</p>
     </div>
   )
