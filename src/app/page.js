@@ -24,10 +24,12 @@ export default function Homepage() {
     <div className="p-10 pb-0 flex flex-col gap-14 relative">
       <div className="flex flex-col gap-5">
         <DateDisplay></DateDisplay>
-        <TaskInfo data={todayTask}></TaskInfo>
+        <div className="flex flex-col mt-7 gap-5">
+          <TaskInfo data={todayTask}></TaskInfo>
+        </div>
       </div>
-      <TodayTask data={todayTask} updateHandler={updateTodayTask}></TodayTask>
-      <footer className="p-4 text-center text-md font-bold">Powered by Primum Coertus</footer>
+      {/* <TodayTask data={todayTask} updateHandler={updateTodayTask}></TodayTask>
+      <footer className="p-4 text-center text-md font-bold">Powered by Primum Coertus</footer> */}
     </div>
   )
 }

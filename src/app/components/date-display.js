@@ -14,9 +14,9 @@ export default function DateDisplay() {
   });
 
   return (
-    <div className="w-100 text-4xl">
-      <p className="font-bold">{date}</p>
-      <p className="">{time}</p>
+    <div className="flex flex-col-reverse csm2:flex-col items-center csm2:items-start">
+      <p className="text-sm csm1:text-lg csm2:text-4xl csm2:font-bold">{date}</p>
+      <p className="text-5xl csm1:text-7xl csm2:text-4xl">{time}</p>
     </div>
   );
 }

@@ -28,12 +28,19 @@ module.exports = {
         '118-px': '118px'
       },
       minHeight: {
+        '120-px': '120px',
         '200-px': '200px',
         '250-px': '250px'
       },
       margin: {
         '84': '21rem'
-      }
+      },
+      screens: {
+        'csm1': '425px',
+        'csm2': '530px',
+        'clg1': '950px'
+        // => @media (min-width: 576px) { ... }
+      },
     },
   },
   plugins: [],
