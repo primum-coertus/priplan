@@ -24,15 +24,29 @@ module.exports = {
         '335-px': '335px',
         '0.9': '90%'
       },
+      minWidth: {
+        '60-px': '60px'
+      },
       maxHeight: {
         '118-px': '118px'
       },
       minHeight: {
+        '120-px': '120px',
         '200-px': '200px',
         '250-px': '250px'
       },
       margin: {
         '84': '21rem'
+      },
+      screens: {
+        'csm1': '425px',
+        'csm2': '530px',
+        'cmd1': '620px',
+        'clg1': '950px'
+        // => @media (min-width: 576px) { ... }
+      },
+      fontSize: {
+        'csm1': '0.25rem'
       }
     },
   },
