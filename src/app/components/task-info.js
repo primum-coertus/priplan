@@ -95,7 +95,7 @@ function UpcomingTask() {
 function UpcomingTaskList({data}) {
     return (
       <div className="">
-        <li className="text-sm csm1:text-lg sm:text-sm ml-3 md:text-base">{data.title}</li>
+        <li className="text-sm csm1:text-base sm:text-sm ml-3 md:text-base">{data.title}</li>
       </div>
     );
 }

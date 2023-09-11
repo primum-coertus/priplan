@@ -41,6 +41,7 @@ module.exports = {
       screens: {
         'csm1': '425px',
         'csm2': '530px',
+        'cmd1': '620px',
         'clg1': '950px'
         // => @media (min-width: 576px) { ... }
       },
