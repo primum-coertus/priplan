@@ -24,6 +24,9 @@ module.exports = {
         '335-px': '335px',
         '0.9': '90%'
       },
+      minWidth: {
+        '60-px': '60px'
+      },
       maxHeight: {
         '118-px': '118px'
       },
@@ -41,6 +44,9 @@ module.exports = {
         'clg1': '950px'
         // => @media (min-width: 576px) { ... }
       },
+      fontSize: {
+        'csm1': '0.25rem'
+      }
     },
   },
   plugins: [],
