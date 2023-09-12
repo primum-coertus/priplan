@@ -74,6 +74,12 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
     })
   }
 
+  const endDateFormat = end_date => {
+    end_date = end_date.toString().split("T")[0].split("-");
+    const [yy,mm,dd] = end_date;
+    return `${dd}-${mm}-${yy}`;
+  }
+
   return (
     <div className="flex bg-app-white text-app-black rounded-md overflow-hidden h-36 hover:cursor-pointer hover:shadow-[#6b7280_0px_3px_8px] transition-shadow duration-300">
       <span onClick={() => detailModalHandler(detail)} className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} w-1/5`}></span>
@@ -82,7 +88,7 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
         <div className="p-2 flex flex-col gap-2 pb-6 pl-4">
           <div>
             <p className="text-xl font-bold csm2:text-2xl">{detail.title}</p>
-            <p className="text-xs csm2:text-sm">{detail.end_date}</p>
+            <p className="text-xs csm2:text-sm">{endDateFormat(detail.end_date)}</p>
           </div>
           <p className="text-sm csm2:text-base">{detail.plan}</p>
         </div>
