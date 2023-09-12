@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import { modalHandler } from "../page";
 
-export default function AddTask({modalHandler,updateHandler}) {
+export default function AddTask({updateHandler}) {
   const [inputTitle, setInputTitle] = useState("");
   const [inputStartDate, setInputStartDate] = useState("");
   const [inputEndDate, setInputEndDate] = useState("");

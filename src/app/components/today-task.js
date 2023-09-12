@@ -1,43 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import AddTask from "./add-task";
-import TaskDetail from "./task-detail";
+import { modalHandler } from "../page";
 import axios from "axios";
 
-export default function TodayTask({data, updateHandler}) {
-  const [detailTask, setDetailTask] = useState({});
-
-  const modalHandler = (id,show) => {
-    const targetElement = document.getElementById(id);
-    if(show) {
-      targetElement.classList.remove('hidden');
-    } else {
-      targetElement.classList.add('hidden');
-    }
-  };
-
-  const detailModalHandler = detail => {
-    setDetailTask(detail);
-    modalHandler("taskDetail",true);
-  }
-
+export default function TodayTask({data, updateHandler, detailHandler}) {
   return (
     <div id="todayTask" className="flex flex-col gap-6 relative">
-      <TaskDetail detail={detailTask} modalHandler={modalHandler}></TaskDetail>
-      <AddTask modalHandler={modalHandler} updateHandler={updateHandler}></AddTask>
       <h1 className="text-2xl csm1:text-3xl font-bold">Today's Task</h1>
-      <TaskList data={data} modalHandler={modalHandler} updateHandler={updateHandler} detailModalHandler={detailModalHandler}></TaskList>
+      <TaskList data={data} updateHandler={updateHandler} detailHandler={detailHandler}></TaskList>
     </div>
   );
 }
 
-function TaskList({data, modalHandler, updateHandler, detailModalHandler}) {
+function TaskList({data, updateHandler, detailHandler}) {
   return data.length ? (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 min-h-200-px">
         {data.map(task => (
-          <TaskCard key={task._id} detail={task} updateHandler={updateHandler} detailModalHandler={detailModalHandler}></TaskCard>
+          <TaskCard key={task._id} detail={task} updateHandler={updateHandler} detailHandler={detailHandler}></TaskCard>
         ))}
       </div>
       <div className="flex flex-col items-end mt-4">
@@ -51,7 +31,7 @@ function TaskList({data, modalHandler, updateHandler, detailModalHandler}) {
   )
 }
 
-function TaskCard({detail, updateHandler, detailModalHandler}) {
+function TaskCard({detail, updateHandler, detailHandler}) {
   const deleteHandler = (e) => {
     const id = e.target.id;
     axios.delete(`http://localhost:3001/deleteById/${id}`)
@@ -82,7 +62,7 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
 
   return (
     <div className="flex bg-app-white text-app-black rounded-md overflow-hidden h-36 hover:cursor-pointer hover:shadow-[#6b7280_0px_3px_8px] transition-shadow duration-300">
-      <span onClick={() => detailModalHandler(detail)} className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} w-1/5`}></span>
+      <span onClick={() => detailHandler(detail)} className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} w-1/5`}></span>
       <div className="w-full relative flex justify-between">
         <span className="w-full h-5 absolute bottom-0 opacity-70 bg-white"></span>
         <div className="p-2 flex flex-col gap-2 pb-6 pl-4">
@@ -101,10 +81,10 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
   )
 }
 
-function AddButton({showModal}) {
+function AddButton() {
   return (
     <div className="flex flex-col items-center">
-      <button className="w-14 h-14 md:w-16 md:h-16 pb-2 rounded-full flex justify-center items-center text-5xl md:text-7xl bg-app-blue overflow-hidden" onClick={() => showModal("addTask",true)}>+</button>
+      <button className="w-14 h-14 md:w-16 md:h-16 pb-2 rounded-full flex justify-center items-center text-5xl md:text-7xl bg-app-blue overflow-hidden" onClick={() => modalHandler("addTask",true)}>+</button>
       <p className="text-sm md:text-lg">Add new task</p>
     </div>
   )

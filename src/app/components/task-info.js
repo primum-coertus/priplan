@@ -1,8 +1,11 @@
-export default function TaskInfo({data}) {
+import axios from "axios";
+import { useState } from "react";
+
+export default function TaskInfo({data, detailHandler}) {
   return (
     <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-stretch">
       <TaskProgress todayTask={data}></TaskProgress>
-      <UpcomingTask></UpcomingTask>
+      <UpcomingTask detailHandler={detailHandler}></UpcomingTask>
     </div>
   );
 }
@@ -37,53 +40,24 @@ function TaskProgress({todayTask}) {
   );
 }
 
-function UpcomingTask() {
-  //upcomingTask nanti ngambil dri database
-  const upcomingTasks = [
-    {
-      "_id": "64fd29824fb13449be6a7072",
-      "title": "Front-End Priplan",
-      "plan": "Menyelesaikan bagian front-end projek Priplan",
-      "start_date": "2023-09-10T00:00:00.000Z",
-      "end_date": "2023-09-17T00:00:00.000Z",
-      "is_completed": false,
-      "__v": 0
-    },
-    {
-        "_id": "64fd2a6a4fb13449be6a78b0",
-        "title": "Ngoding Bareng",
-        "plan": "Ngoding bareng projek Priplan di Discord pukul 20.00 WIB",
-        "start_date": "2023-09-10T00:00:00.000Z",
-        "end_date": "2023-09-10T00:00:00.000Z",
-        "is_completed": false,
-        "__v": 0
-    },
-    {
-      "_id": "64fb2f9eafcdcb85752fcdae",
-      "title": "NaufalK",
-      "plan": "tiga",
-      "start_date": "2023-09-08T04:00:00.000Z",
-      "end_date": "2023-09-08T04:00:00.000Z",
-      "is_completed": false,
-      "__v": 0
-    },
-    {
-        "_id": "64fd364e4fb13449be6ae93b",
-        "title": "Testing Plan 3",
-        "plan": "Testing Plannnn",
-        "start_date": "2023-09-11T00:00:00.000Z",
-        "end_date": "2023-09-09T00:00:00.000Z",
-        "is_completed": false,
-        "__v": 0
-    }
-  ];
+function UpcomingTask({detailHandler}) {
+  const [upcomingTasks, setUpcomingTask] = useState([]);
+
+  axios.get('http://localhost:3001/getUpcoming')
+  .then(({data}) => {
+    setUpcomingTask(data.data);
+  })
+  .catch(err => {
+    setUpcomingTask([]);
+    console.log(err);
+  })
 
   return (
     <div className="bg-app-blue w-full p-4 md:p-5 flex flex-col gap-4 rounded-md">
       <p className="text-xl font-bold csm1:text-2xl sm:text-lg md:text-2xl">Upcoming Task</p>
       <ul className="list-disc w-fit ml-5 grid grid-cols-1 csm2:grid-rows-3 csm2:grid-flow-col sm:grid-rows-2 lg:grid-rows-3 gap-3 csm2:gap-4 csm2:gap-x-10">
         {upcomingTasks.length ? upcomingTasks.map(upcomingTask => (
-          <UpcomingTaskList key={upcomingTask._id} data={upcomingTask}></UpcomingTaskList>
+          <UpcomingTaskList key={upcomingTask._id} data={upcomingTask} detailHandler={detailHandler}></UpcomingTaskList>
         )) : 
           <UpcomingTaskList data={{_id: 'emptyTask', title: "There's no upcoming task !"}}></UpcomingTaskList>
         }
@@ -92,10 +66,14 @@ function UpcomingTask() {
   );
 }
 
-function UpcomingTaskList({data}) {
+function UpcomingTaskList({data,detailHandler}) {
     return (
       <div className="">
-        <li className="text-sm csm1:text-base sm:text-sm ml-3 md:text-base">{data.title}</li>
+        {detailHandler ? (
+          <li onClick={() => detailHandler(data)} className="text-sm csm1:text-base sm:text-sm ml-3 md:text-base hover:cursor-pointer">{data.title}</li>
+        ) : (
+          <li className="text-sm csm1:text-base sm:text-sm ml-3 md:text-base hover:cursor-pointer">{data.title}</li>
+        )}
       </div>
     );
 }
