@@ -63,9 +63,20 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
     })
   }
 
+  const completeHandler = (e) => {
+    const id = e.target.id;
+    axios.put(`http://localhost:3001/toggleIsCompletedById/${id}`)
+    .then(() => {
+      updateHandler();
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   return (
-    <div onClick={() => detailModalHandler(detail)} className="flex bg-app-white text-app-black rounded-md overflow-hidden h-36 hover:cursor-pointer hover:shadow-[#6b7280_0px_3px_8px] transition-shadow duration-300">
-      <span className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} w-1/5`}></span>
+    <div className="flex bg-app-white text-app-black rounded-md overflow-hidden h-36 hover:cursor-pointer hover:shadow-[#6b7280_0px_3px_8px] transition-shadow duration-300">
+      <span onClick={() => detailModalHandler(detail)} className={`${detail.is_completed ? 'bg-gray-400' : 'bg-app-red'} w-1/5`}></span>
       <div className="w-full relative flex justify-between">
         <span className="w-full h-5 absolute bottom-0 opacity-70 bg-white"></span>
         <div className="p-2 flex flex-col gap-2 pb-6 pl-4">
@@ -77,7 +88,7 @@ function TaskCard({detail, updateHandler, detailModalHandler}) {
         </div>
         <div className="p-4 text-2xl flex items-center justify-end gap-3">
           <button type="button" onClick={deleteHandler}><svg className="w-5 h-5 csm2:w-7 csm2:h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#FF5E5E" id={detail._id}><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></button>
-          <button type="button"><svg className="w-5 h-5 csm2:w-7 csm2:h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#7180FF" id={detail._id}><path d="m438-240 226-226-58-58-169 169-84-84-57 57 142 142ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg></button>
+          <button type="button" onClick={completeHandler}><svg className="w-5 h-5 csm2:w-7 csm2:h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#7180FF" id={detail._id}><path d="m438-240 226-226-58-58-169 169-84-84-57 57 142 142ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg></button>
         </div>
       </div>
     </div>
