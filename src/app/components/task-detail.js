@@ -11,7 +11,7 @@ export default function TaskDetail({detail,modalHandler}) {
         <div className="p-7 flex flex-col gap-5 relative">
           <button type="button" className="absolute text-2xl text-red-600 top-1 right-2" onClick={() => modalHandler("taskDetail",false)}>x</button>
           <h2>{detail.title}</h2>
-          <p>Due : {endDateFormat(detail.end_date)}</p>
+          <p>Due : {detail.end_date ? endDateFormat(detail.end_date) : ""}</p>
           <p>Description : <br /> {detail.plan}</p>
         </div>
       </div>
