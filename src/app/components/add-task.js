@@ -8,9 +8,19 @@ export default function AddTask({updateHandler, alertHandler}) {
   const [inputStartDate, setInputStartDate] = useState("");
   const [inputEndDate, setInputEndDate] = useState("");
   const [inputPlan, setInputPlan] = useState("");
+  const [showCheckbox,setShowCheckBox] = useState(false);
 
   const titleChangeHandler = event => setInputTitle(event.target.value);
-  const startDateChangeHandler = event => setInputStartDate(event.target.value);
+  const startDateChangeHandler = event => {
+    setInputStartDate(event.target.value)
+    setShowCheckBox(true);
+  };
+  const checkDateHandler = () => {
+    const startDate = document.getElementById("start_date");
+    const endDate = document.getElementById("end_date");
+    endDate.value = startDate.value;
+    setInputEndDate(inputStartDate);
+  }
   const endDateChangeHandler = event => setInputEndDate(event.target.value);
   const planChangeHandler = event => setInputPlan(event.target.value);
 
@@ -44,11 +54,15 @@ export default function AddTask({updateHandler, alertHandler}) {
           <div className="flex flex-col cmd1:flex-row gap-5">
             <div className="flex flex-col cmd1:w-fit gap-2">
               <p>Start Date</p>
-              <input type="date" name="start_date" className="p-2 rounded-sm outline-0 text-sm csm2:text-lg text-black" onChange={startDateChangeHandler} required />
+              <input type="date" id="start_date" name="start_date" className="p-2 rounded-sm outline-0 text-sm csm2:text-lg text-black" onChange={startDateChangeHandler} required />
+              <div className={`${showCheckbox ? 'block' : 'hidden'}`}>
+                <input id="sameDate" type="checkbox" onChange={checkDateHandler} className="mr-2" />
+                <label htmlFor="sameDate">End date same with start date</label>
+              </div>
             </div>
             <div className="flex flex-col cmd1:w-fit gap-2">
               <p>End Date</p>
-              <input type="date" name="end_date" className="p-2 rounded-sm outline-0 text-sm csm2:text-lg text-black" onChange={endDateChangeHandler} required />
+              <input type="date" id="end_date" name="end_date" className="p-2 rounded-sm outline-0 text-sm csm2:text-lg text-black" onChange={endDateChangeHandler} required />
             </div>
           </div>
           <textarea name="taskDescription" className="p-3 rounded-md text-sm csm2:text-lg text-black outline-0 resize-none h-32 cmd1:min-h-200-px" placeholder="Add task description" onChange={planChangeHandler}></textarea>
