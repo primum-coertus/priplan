@@ -3,12 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 import { modalHandler } from "../page";
 
-export default function AddTask({updateHandler}) {
+export default function AddTask({updateHandler, alertHandler}) {
   const [inputTitle, setInputTitle] = useState("");
   const [inputStartDate, setInputStartDate] = useState("");
   const [inputEndDate, setInputEndDate] = useState("");
   const [inputPlan, setInputPlan] = useState("");
-  // const [infoAlert, setInfoAlert] = useState("");
 
   const titleChangeHandler = event => setInputTitle(event.target.value);
   const startDateChangeHandler = event => setInputStartDate(event.target.value);
@@ -24,13 +23,13 @@ export default function AddTask({updateHandler}) {
       end_date: inputEndDate,
       is_completed: false
     }).then(() => {
-      // setInfoAlert("Success add new task list");
+      alertHandler("Success add new task !",true);
       const resetButton = document.getElementById("reset");
       resetButton.click();
       modalHandler("addTask",false);
       updateHandler();
     }).catch(() => {
-      // setInfoAlert("Failed add new task list");
+      alertHandler("Failed add new task !",false);
     });
   }
 
@@ -41,7 +40,6 @@ export default function AddTask({updateHandler}) {
         <div className="p-7 flex flex-col gap-5 relative">
           <button type="button" className="absolute text-2xl text-red-600 top-1 right-2" onClick={() => modalHandler("addTask",false)}>x</button>
           <h3 className="text-xl csm2:text-2xl font-bold">Add Task</h3>
-          {/* {infoAlert ? (<p className="text-md text-green-500">{infoAlert}</p>) : <p className="text-md text-red-500">{infoAlert}</p>} */}
           <input type="text" name="title" placeholder="Title" className="p-3 pb-1 text-base csm2:text-xl text-white bg-transparent outline-0 border-b-2 border-app-blue" onChange={titleChangeHandler}  required />
           <div className="flex flex-col cmd1:flex-row gap-5">
             <div className="flex flex-col cmd1:w-fit gap-2">

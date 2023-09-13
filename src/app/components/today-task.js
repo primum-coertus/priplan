@@ -3,21 +3,21 @@
 import { modalHandler } from "../page";
 import axios from "axios";
 
-export default function TodayTask({data, updateHandler, detailHandler}) {
+export default function TodayTask({data, updateHandler, detailHandler, alertHandler}) {
   return (
     <div id="todayTask" className="flex flex-col gap-6 relative">
       <h1 className="text-2xl csm1:text-3xl font-bold">Today's Task</h1>
-      <TaskList data={data} updateHandler={updateHandler} detailHandler={detailHandler}></TaskList>
+      <TaskList data={data} updateHandler={updateHandler} detailHandler={detailHandler} alertHandler={alertHandler}></TaskList>
     </div>
   );
 }
 
-function TaskList({data, updateHandler, detailHandler}) {
+function TaskList({data, updateHandler, detailHandler, alertHandler}) {
   return data.length ? (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-10 min-h-200-px">
         {data.map(task => (
-          <TaskCard key={task._id} detail={task} updateHandler={updateHandler} detailHandler={detailHandler}></TaskCard>
+          <TaskCard key={task._id} detail={task} updateHandler={updateHandler} detailHandler={detailHandler} alertHandler={alertHandler}></TaskCard>
         ))}
       </div>
       <div className="flex flex-col items-end mt-4">
@@ -31,15 +31,17 @@ function TaskList({data, updateHandler, detailHandler}) {
   )
 }
 
-function TaskCard({detail, updateHandler, detailHandler}) {
+function TaskCard({detail, updateHandler, detailHandler, alertHandler}) {
   const deleteHandler = (e) => {
     const id = e.target.id;
     axios.delete(`http://localhost:3001/deleteById/${id}`)
     .then(() => {
       updateHandler();
+      alertHandler("Task deleted successfully !",true);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
+      alertHandler("Failed Delete Task !",false);
     })
   }
 
@@ -48,9 +50,11 @@ function TaskCard({detail, updateHandler, detailHandler}) {
     axios.put(`http://localhost:3001/toggleIsCompletedById/${id}`)
     .then(() => {
       updateHandler();
+      alertHandler("Task updated successfully !",true);
     })
     .catch(err => {
       console.log(err);
+      alertHandler("Failed update Task !",false);
     })
   }
 

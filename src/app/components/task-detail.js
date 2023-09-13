@@ -2,16 +2,18 @@ import { useState } from "react";
 import { modalHandler } from "../page";
 import axios from "axios";
 
-export default function TaskDetail({detail}) {
+export default function TaskDetail({detail, alertHandler}) {
   const [taskStatus, setTaskStatus] = useState(detail.is_completed);
 
   const deleteHandler = (e) => {
     const id = e.target.id;
     axios.delete(`http://localhost:3001/deleteById/${id}`)
     .then(() => {
+      alertHandler("Task deleted successfully !",true);
       modalHandler("taskDetail",false);
     })
     .catch(err => {
+      alertHandler("Failed Delete Task !",false);
       console.log(err)
     })
   }
@@ -20,9 +22,11 @@ export default function TaskDetail({detail}) {
     const id = e.target.id;
     axios.put(`http://localhost:3001/toggleIsCompletedById/${id}`)
     .then(() => {
+      alertHandler("Task updated successfully !",true);
       setTaskStatus(!taskStatus);
     })
     .catch(err => {
+      alertHandler("Failed update Task !",false);
       console.log(err);
     })
   }
