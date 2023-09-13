@@ -6,12 +6,13 @@ export default function DateDisplay() {
   const [time,setTime] = useState("00:00");
 
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       const fullDate = new Date();
       setDate(printDate(fullDate));
       setTime(printTime(fullDate));
     }, 1000);
-  });
+    return () => clearInterval(timer);
+  },[]);
 
   return (
     <div className="flex flex-col-reverse csm2:flex-col items-center csm2:items-start">
