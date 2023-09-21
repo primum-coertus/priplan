@@ -45,7 +45,7 @@ export default function TaskDetail({detail, alertHandler}) {
           <h2 className="text-3xl font-bold">{detail.title}</h2>
           <div className="flex flex-col gap-3">
             <p><span className="text-app-red">Due Date</span> : {detail.end_date ? endDateFormat(detail.end_date) : ""}</p>
-            <p><span className="text-app-red">Status</span> : {taskStatus ? "Done" : "On Going"}</p>
+            <p><span className="text-app-red">Status</span> : {detail.is_completed ? "Done" : "On Going"}</p>
             <p><span className="text-app-red">Description</span> : {detail.plan}</p>
           </div>
           <div>
